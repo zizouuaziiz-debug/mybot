@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "GoldenTask"
+version = "1.0.0"
+id = "artifacts/golden-task"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23428
+
+[services.development]
+run = "pnpm --filter @workspace/golden-task run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/golden-task", "run", "build" ]
+publicDir = "artifacts/golden-task/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23428"
+BASE_PATH = "/"
